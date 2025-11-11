@@ -1,0 +1,185 @@
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    color: #333; 
+}
+.page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    padding: 0.5in;
+    box-sizing: border-box;
+    background: white;
+    border: 1px solid #ccc;
+}
+.header-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-start; 
+    margin-bottom: 10px; 
+}
+.logo-box { 
+    width: 100px; 
+    height: 100px; 
+    border: 1px solid #ddd; 
+    text-align: center; 
+    line-height: 100px; 
+    font-size: 0.7rem; 
+    color: #777; 
+}
+.title-area { 
+    flex-grow: 1; 
+    text-align: center; 
+    padding: 0 15px; 
+}
+h1 { 
+    font-size: 1.3rem; 
+    margin: 5px 0; 
+    border-bottom: 2px solid #a83a6f; 
+    padding-bottom: 5px; 
+    color: #a83a6f; 
+}
+h2 { 
+    font-size: 1rem; 
+    margin: 0 0 5px 0; 
+    color: #333; 
+}
+
+.row-container { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 10px; 
+    flex-wrap: wrap; 
+}
+.col-half { 
+    flex: 1; 
+    min-width: 45%; 
+}
+
+.field-group { 
+    margin-bottom: 5px; 
+}
+.field-group label { 
+    display: block; 
+    font-weight: bold; 
+    margin-bottom: 3px; 
+    font-size: 0.8rem; 
+}
+
+input[type="text"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 0.85rem;
+}
+
+/* Estilo para Folio generado por el sistema */
+#folio { 
+    background-color: #f0f8ff; 
+    font-weight: bold; 
+    color: #0056b3; 
+}
+
+/* Estilos del mapa y botones de acción */
+#map { 
+    height: 180px; 
+    border-radius: 4px; 
+    margin-top: 5px; 
+}
+.action-container { 
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+    display: flex; 
+    gap: 8px; 
+    justify-content: flex-start; 
+}
+.action-container button, .map-actions button { 
+    padding: 6px 10px; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    background: #a83a6f; 
+    color: white; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    transition: background 0.2s;
+}
+.action-container button:hover, .map-actions button:hover { 
+    background: #8b2c55; 
+}
+.action-container button.secondary, .map-actions button.secondary { 
+    background: #555; 
+}
+
+.drawing-area { 
+    border: 1px dashed #ccc; 
+    height: 160px; 
+    padding: 5px; 
+    margin-top: 5px; 
+}
+#qrcode { 
+    width: 100px; 
+    height: 100px; 
+    border: 1px dashed #333; 
+    text-align: center; 
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 0.7rem;
+}
+
+.signatures { 
+    margin-top: 20px; 
+    display: flex; 
+    justify-content: space-around; 
+    text-align: center; 
+    border-top: 1px solid #ccc; 
+    padding-top: 15px; 
+}
+.signature-box { 
+    width: 22%; 
+}
+.signature-line { 
+    border-bottom: 1px solid #333; 
+    height: 1px; 
+    margin-bottom: 5px; 
+}
+.signature-label { 
+    font-size: 0.75rem; 
+    font-style: italic; 
+}
+
+/* Estilos de impresión */
+@media print {
+    .page { 
+        border: none; 
+        margin: 0; 
+        padding: 0.5in; 
+        width: 100%; 
+        height: 100%; 
+        page-break-after: always; 
+    }
+    .action-container, .map-actions { 
+        display: none; 
+    }
+    input, select, textarea {
+        border: none !important;
+        border-bottom: 1px dotted #333 !important;
+        padding: 0 0 2px 0 !important;
+        background-color: transparent !important;
+    }
+    #map { 
+        height: 150px !important; 
+    }
+    .drawing-area, #qrcode { 
+        border: 1px dashed #333 !important; 
+    }
+    .logo-box { 
+        border: none; 
+    }
+}
