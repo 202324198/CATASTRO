@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Orden de Trabajo Catastral - FINAL (Listo para Git)</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="page">
+        
+        <div class="header-container">
+            <div class="logo-box">LOGO MUNICIPAL</div>
+            <div class="title-area">
+                <h1>COORDINACIÓN DE CATASTRO</h1>
+                <h2>ORDEN DE TRABAJO</h2>
+            </div>
+            <div class="logo-box">LOGO CATASTRAL</div>
+        </div>
+
+        <form id="catastroForm">
+            <div class="row-container">
+                <div class="field-group" style="flex: 1 1 50%;">
+                    <label for="nombre">Nombre / Solicitante</label>
+                    <input id="nombre" name="nombre" type="text" placeholder="Nombre del propietario o solicitante" required>
+                </div>
+                <div class="field-group" style="flex: 1 1 30%;">
+                    <label for="tramite">Trámite</label>
+                    <select id="tramite" name="tramite" required>
+                        <option value="">-- Selecciona --</option>
+                        <option>Certificado de clave y valor</option>
+                        <option>Traslado de dominio</option>
+                        <option>Actualización catastral</option>
+                    </select>
+                </div>
+                <div class="field-group" style="flex: 0 0 15%;">
+                    <label for="fecha" style="font-weight: bold;">FECHA:</label>
+                    <input id="fecha" name="fecha" type="text" value="" readonly>
+                </div>
+            </div>
+        
+            <div class="row-container">
+                <div class="field-group col-half">
+                    <label for="colonia">Colonia y/o Pueblo</label>
+                    <input id="colonia" name="colonia" type="text" placeholder="Colonia o Pueblo">
+                </div>
+                <div class="field-group col-half">
+                    <label for="direccion">Dirección / Calle (Opcional)</label>
+                    <input id="direccion" name="direccion" type="text" placeholder="Calle, número, referencia">
+                </div>
+            </div>
+            
+            <div class="row-container">
+                <div class="field-group" style="flex: 1 1 30%;">
+                    <label for="clave">Clave Catastral</label>
+                    <input id="clave" name="clave" type="text" placeholder="Ej: 000-000-000" required>
+                </div>
+                <div class="field-group" style="flex: 1 1 30%;">
+                    <label for="folio">Folio Catastral</label>
+                    <input id="folio" name="folio" type="text" placeholder="Folio Único" readonly>
+                </div>
+                <div class="field-group" style="flex: 1 1 30%;">
+                    <label for="usoSuelo">Uso de Suelo (P.M.D.U.)</label>
+                    <select id="usoSuelo" name="usoSuelo">
+                        <option value="">-- Selecciona --</option>
+                        <option>Habitacional</option>
+                        <option>Comercial</option>
+                        <option>Mixto</option>
+                    </select>
+                </div>
+            </div>
+        
+            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 10px 0;">
+        
+            <div class="row-container">
+                <div class="col-half">
+                    <h2>LOCALIZACIÓN DEL INMUEBLE (Mapa)</h2>
+                    <div id="map"></div>
+                    <div class="map-actions">
+                        <button type="button" id="useLocation">Usar ubicación actual</button>
+                        <button type="button" class="secondary" id="clearMarker">Limpiar ubicación</button>
+                    </div>
+                    <div class="row-container" style="margin-top: 5px;">
+                        <div class="field-group col-half">
+                            <label for="lat">Latitud (DD)</label>
+                            <input id="lat" name="lat" type="number" step="0.000001" placeholder="19.xxxxxx" required>
+                        </div>
+                        <div class="field-group col-half">
+                            <label for="lon">Longitud (DD)</label>
+                            <input id="lon" name="lon" type="number" step="0.000001" placeholder="-98.xxxxxx" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-half">
+                    <h2>CROQUIS / COLINDANCIAS / MEDIDAS</h2>
+                    <div class="field-group">
+                        <label>Descripción de Medidas y Colindancias</label>
+                        <textarea id="colindancias" name="colindancias" rows="3" placeholder="Norte: 20m, Sur: 21m, etc."></textarea>
+                    </div>
+                    <label>Área de Dibujo del Predio (Cuadrícula)</label>
+                    <div class="drawing-area">
+                        </div>
+                </div>
+            </div>
+        
+            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 10px 0;">
+        
+            <div class="row-container">
+                <div class="field-group" style="flex: 1 1 20%;">
+                    <label for="superficie">Superficie Terreno (m²)</label>
+                    <input id="superficie" name="superficie_terreno" type="number" step="0.01" placeholder="0.00">
+                </div>
+                <div class="field-group" style="flex: 1 1 20%;">
+                    <label for="superConstruccion">Superficie Construcción (m²)</label>
+                    <input id="superConstruccion" name="superficie_construccion" type="number" step="0.01" placeholder="0.00">
+                </div>
+                <div class="field-group" style="flex: 1 1 20%;">
+                    <label for="topografia">Topografía</label>
+                    <select id="topografia" name="topografia">
+                        <option value="">-- Selecciona --</option>
+                        <option>A nivel</option>
+                        <option>Inclinado</option>
+                        <option>Accidentado</option>
+                    </select>
+                </div>
+                <div class="field-group" style="flex: 1 1 20%;">
+                    <label for="estado">Estado Conservación</label>
+                    <select id="estado" name="estado_conservacion">
+                        <option value="">-- Selecciona --</option>
+                        <option>Bueno</option>
+                        <option>Regular</option>
+                        <option>Malo</option>
+                    </select>
+                </div>
+                <div class="field-group" style="flex: 1 1 10%;">
+                    <label for="añoConstruccion">Año</label>
+                    <input id="añoConstruccion" name="año_construccion" type="number" step="1" placeholder="YYYY">
+                </div>
+            </div>
+        
+            <div class="row-container">
+                <div class="field-group" style="flex: 1 1 80%;">
+                    <label for="observaciones">OBSERVACIONES</label>
+                    <textarea id="observaciones" name="observaciones" rows="2" placeholder="Notas adicionales sobre el levantamiento."></textarea>
+                    <div class="action-container">
+                        <button type="button" id="exportCsv">Exportar a CSV (Local)</button>
+                        <button type="submit" id="generateQr">Generar Folio y QR (Servidor)</button>
+                    </div>
+                </div>
+                <div class="field-group" style="flex: 0 0 15%;">
+                    <label>Código QR</label>
+                    <div id="qrcode">Esperando Folio...</div>
+                </div>
+            </div>
+        </form>
+        
+        <div class="signatures">
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">ELABORÓ</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">FIRMA DE CONFORMIDAD (Solicitante)</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">AUTORIZÓ CARTOGRAFÍA</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">AUTORIZÓ EXPEDIENTE</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
